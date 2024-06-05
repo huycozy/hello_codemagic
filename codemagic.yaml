@@ -29,9 +29,14 @@ workflows:
                 flutter build appbundle --release
             - name: Build universal APK
               script: | 
-                android-app-bundle build-universal-apk
+                android-app-bundle build-universal-apk \
+                  --ks $CM_KEYSTORE_PATH \
+                  --ks-pass $CM_KEYSTORE_PASSWORD \
+                  --ks-key-alias $CM_KEY_ALIAS \
+                  --key-pass $CM_KEY_PASSWORD
         artifacts:
             - build/**/outputs/**/*.aab
+            - build/**/outputs/**/*.apk
             - build/**/outputs/**/mapping.txt
             - flutter_drive.log
         publishing:
